@@ -9,18 +9,23 @@ export default eslint(
     jsx: true
   },
   {
+    name: 'poketinder/tanstack-query',
     plugins: {
       '@tanstack/query': pluginTanstackQuery
     },
-    name: 'tanstack-query',
-    ...pluginTanstackQuery.configs.recomended
+    rules: {
+      ...pluginTanstackQuery.configs.recommended.rules,
+      '@tanstack/query/exhaustive-deps': 'warn'
+    }
   },
   {
+    name: 'poketinder/tanstack-router',
     plugins: {
       '@tanstack/router': pluginTanstackRouter
     },
-    name: 'tanstack-router',
-    ...pluginTanstackRouter.configs.recomended
+    rules: {
+      ...pluginTanstackRouter.configs.recommended.rules
+    }
   },
   {
     name: 'poketinder/generated',
