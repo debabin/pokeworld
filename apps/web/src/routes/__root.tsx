@@ -10,7 +10,7 @@ interface RouterContext {
 
 const Root = () => (
   <>
-    <Outlet />
+    {/* <Outlet /> */}
     <TanStackRouterDevtools />
     <ReactQueryDevtools />
   </>

@@ -1,4 +1,4 @@
-import type { Statistic } from '@/generated/api';
+import type { Statistic } from '@/generated/api/indexю';
 
 import {
   PokemonStatisticLine,

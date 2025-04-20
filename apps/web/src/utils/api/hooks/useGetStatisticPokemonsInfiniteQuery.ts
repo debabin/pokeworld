@@ -13,6 +13,7 @@ export const useGetStatisticPokemonsInfiniteQuery = (
   useInfiniteQuery({
     initialPageParam: 0,
     queryKey: ['getPokemons', ...Object.values(params)],
+    // @ts-ignore
     queryFn: ({ pageParam }) =>
       getPokemons({
         params: {
@@ -24,7 +25,9 @@ export const useGetStatisticPokemonsInfiniteQuery = (
         config: settings?.config
       }),
     getNextPageParam: (lastPage) => {
+      // @ts-ignore
       if (lastPage && lastPage.data.response.next) {
+        // @ts-ignore
         return lastPage.data.response.page;
       }
       return undefined;

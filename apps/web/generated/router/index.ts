@@ -8,200 +8,294 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from './../../src/routes/__root';
-import { Route as LayoutImport } from './../../src/routes/_layout';
-import { Route as LayoutStatsLayoutImport } from './../../src/routes/_layout/stats/_layout';
-import { Route as LayoutStatsLayoutTopIndexImport } from './../../src/routes/_layout/stats/_layout/top/index';
-import { Route as LayoutStatsLayoutListIndexImport } from './../../src/routes/_layout/stats/_layout/list/index';
+import { Route as rootRoute } from './../../src/routes/__root'
+import { Route as LayoutImport } from './../../src/routes/_layout'
+import { Route as LayoutStatsLayoutImport } from './../../src/routes/_layout/stats/_layout'
+import { Route as LayoutarenaLayoutImport } from './../../src/routes/_layout/(arena)/_layout'
+import { Route as LayoutStatsLayoutTopIndexImport } from './../../src/routes/_layout/stats/_layout/top/index'
+import { Route as LayoutStatsLayoutListIndexImport } from './../../src/routes/_layout/stats/_layout/list/index'
+import { Route as LayoutarenaLayoutBattlesIndex2Import } from '../../src/routes/_layout/(arena)/_layout/battles'
 
 // Create Virtual Routes
 
-const LayoutStatsImport = createFileRoute('/_layout/stats')();
-const LayoutIndexLazyImport = createFileRoute('/_layout/')();
+const LayoutStatsImport = createFileRoute('/_layout/stats')()
+const LayoutarenaImport = createFileRoute('/_layout/(arena)')()
+const LayoutIndexLazyImport = createFileRoute('/_layout/')()
 
 // Create/Update Routes
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
-  getParentRoute: () => rootRoute
-} as any);
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LayoutStatsRoute = LayoutStatsImport.update({
   id: '/stats',
   path: '/stats',
-  getParentRoute: () => LayoutRoute
-} as any);
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutarenaRoute = LayoutarenaImport.update({
+  id: '/(arena)',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
 const LayoutIndexLazyRoute = LayoutIndexLazyImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => LayoutRoute
-} as any).lazy(() => import('./../../src/routes/_layout/index.lazy').then((d) => d.Route));
+  getParentRoute: () => LayoutRoute,
+} as any).lazy(() =>
+  import('./../../src/routes/_layout/index.lazy').then((d) => d.Route),
+)
 
 const LayoutStatsLayoutRoute = LayoutStatsLayoutImport.update({
   id: '/_layout',
-  getParentRoute: () => LayoutStatsRoute
-} as any);
+  getParentRoute: () => LayoutStatsRoute,
+} as any)
+
+const LayoutarenaLayoutRoute = LayoutarenaLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => LayoutarenaRoute,
+} as any)
 
 const LayoutStatsLayoutTopIndexRoute = LayoutStatsLayoutTopIndexImport.update({
   id: '/top/',
   path: '/top/',
-  getParentRoute: () => LayoutStatsLayoutRoute
+  getParentRoute: () => LayoutStatsLayoutRoute,
 } as any).lazy(() =>
-  import('./../../src/routes/_layout/stats/_layout/top/index.lazy').then((d) => d.Route)
-);
+  import('./../../src/routes/_layout/stats/_layout/top/index.lazy').then(
+    (d) => d.Route,
+  ),
+)
 
-const LayoutStatsLayoutListIndexRoute = LayoutStatsLayoutListIndexImport.update({
-  id: '/list/',
-  path: '/list/',
-  getParentRoute: () => LayoutStatsLayoutRoute
-} as any).lazy(() =>
-  import('./../../src/routes/_layout/stats/_layout/list/index.lazy').then((d) => d.Route)
-);
+const L../../src / routes / _layout / (arena) / _layout / battles / index2.lazyport.update(
+  {
+    id: '/list/',
+    path: '/list/',
+    getParentRoute: () => LayoutStatsLayoutRoute,
+  } as any,
+).lazy(() =>
+  import('./../../src/routes/_layout/stats/_layout/list/index.lazy').then(
+    (d) => d.Route,
+  ),
+)
+
+const LayoutarenaLayoutBattlesIndex2Route =
+  LayoutarenaLayoutBattlesIndex2Import.update({
+    id: '/battles/index2',
+    path: '/battles/index2',
+    getParentRoute: () => LayoutarenaLayoutRoute,
+  } as any).lazy(() =>
+    import(
+      './../../src/routes/_layout/(arena)/_layout/battles/index2.lazy'
+    ).then((d) => d.Route),
+  )
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_layout': {
-      id: '/_layout';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof LayoutImport;
-      parentRoute: typeof rootRoute;
-    };
+      id: '/_layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
     '/_layout/': {
-      id: '/_layout/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof LayoutIndexLazyImport;
-      parentRoute: typeof LayoutImport;
-    };
+      id: '/_layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutIndexLazyImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/(arena)': {
+      id: '/_layout/(arena)'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutarenaImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/(arena)/_layout': {
+      id: '/_layout/(arena)/_layout'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutarenaLayoutImport
+      parentRoute: typeof LayoutarenaRoute
+    }
     '/_layout/stats': {
-      id: '/_layout/stats';
-      path: '/stats';
-      fullPath: '/stats';
-      preLoaderRoute: typeof LayoutStatsImport;
-      parentRoute: typeof LayoutImport;
-    };
+      id: '/_layout/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof LayoutStatsImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/stats/_layout': {
-      id: '/_layout/stats/_layout';
-      path: '/stats';
-      fullPath: '/stats';
-      preLoaderRoute: typeof LayoutStatsLayoutImport;
-      parentRoute: typeof LayoutStatsRoute;
-    };
+      id: '/_layout/stats/_layout'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof LayoutStatsLayoutImport
+      parentRoute: typeof LayoutStatsRoute
+    }
+    '/_layout/(arena)/_layout/battles/index2': {
+      id: '/_layout/(arena)/_layout/battles/index2'
+      path: '/battles/index2'
+      fullPath: '/battles/index2'
+      preLoaderRoute: typeof LayoutarenaLayoutBattlesIndex2Import
+      parentRoute: typeof LayoutarenaLayoutImport
+    }
     '/_layout/stats/_layout/list/': {
-      id: '/_layout/stats/_layout/list/';
-      path: '/list';
-      fullPath: '/stats/list';
-      preLoaderRoute: typeof LayoutStatsLayoutListIndexImport;
-      parentRoute: typeof LayoutStatsLayoutImport;
-    };
+      id: '/_layout/stats/_layout/list/'
+      path: '/list'
+      fullPath: '/stats/list'
+      preLoaderRoute: typeof LayoutStatsLayoutListIndexImport
+      parentRoute: typeof LayoutStatsLayoutImport
+    }
     '/_layout/stats/_layout/top/': {
-      id: '/_layout/stats/_layout/top/';
-      path: '/top';
-      fullPath: '/stats/top';
-      preLoaderRoute: typeof LayoutStatsLayoutTopIndexImport;
-      parentRoute: typeof LayoutStatsLayoutImport;
-    };
+      id: '/_layout/stats/_layout/top/'
+      path: '/top'
+      fullPath: '/stats/top'
+      preLoaderRoute: typeof LayoutStatsLayoutTopIndexImport
+      parentRoute: typeof LayoutStatsLayoutImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface LayoutarenaLayoutRouteChildren {
+  LayoutarenaLayoutBattlesIndex2Route: typeof LayoutarenaLayoutBattlesIndex2Route
+}
+
+const LayoutarenaLayoutRouteChildren: LayoutarenaLayoutRouteChildren = {
+  LayoutarenaLayoutBattlesIndex2Route: LayoutarenaLayoutBattlesIndex2Route,
+}
+
+const LayoutarenaLayoutRouteWithChildren =
+  LayoutarenaLayoutRoute._addFileChildren(LayoutarenaLayoutRouteChildren)
+
+interface LayoutarenaRouteChildren {
+  LayoutarenaLayoutRoute: typeof LayoutarenaLayoutRouteWithChildren
+}
+
+const LayoutarenaRouteChildren: LayoutarenaRouteChildren = {
+  LayoutarenaLayoutRoute: LayoutarenaLayoutRouteWithChildren,
+}
+
+const LayoutarenaRouteWithChildren = LayoutarenaRoute._addFileChildren(
+  LayoutarenaRouteChildren,
+)
+
 interface LayoutStatsLayoutRouteChildren {
-  LayoutStatsLayoutListIndexRoute: typeof LayoutStatsLayoutListIndexRoute;
-  LayoutStatsLayoutTopIndexRoute: typeof LayoutStatsLayoutTopIndexRoute;
+  LayoutStatsLayoutListIndexRoute: typeof LayoutStatsLayoutListIndexRoute
+  LayoutStatsLayoutTopIndexRoute: typeof LayoutStatsLayoutTopIndexRoute
 }
 
 const LayoutStatsLayoutRouteChildren: LayoutStatsLayoutRouteChildren = {
   LayoutStatsLayoutListIndexRoute: LayoutStatsLayoutListIndexRoute,
-  LayoutStatsLayoutTopIndexRoute: LayoutStatsLayoutTopIndexRoute
-};
+  LayoutStatsLayoutTopIndexRoute: LayoutStatsLayoutTopIndexRoute,
+}
 
-const LayoutStatsLayoutRouteWithChildren = LayoutStatsLayoutRoute._addFileChildren(
-  LayoutStatsLayoutRouteChildren
-);
+const LayoutStatsLayoutRouteWithChildren =
+  LayoutStatsLayoutRoute._addFileChildren(LayoutStatsLayoutRouteChildren)
 
 interface LayoutStatsRouteChildren {
-  LayoutStatsLayoutRoute: typeof LayoutStatsLayoutRouteWithChildren;
+  LayoutStatsLayoutRoute: typeof LayoutStatsLayoutRouteWithChildren
 }
 
 const LayoutStatsRouteChildren: LayoutStatsRouteChildren = {
-  LayoutStatsLayoutRoute: LayoutStatsLayoutRouteWithChildren
-};
+  LayoutStatsLayoutRoute: LayoutStatsLayoutRouteWithChildren,
+}
 
-const LayoutStatsRouteWithChildren = LayoutStatsRoute._addFileChildren(LayoutStatsRouteChildren);
+const LayoutStatsRouteWithChildren = LayoutStatsRoute._addFileChildren(
+  LayoutStatsRouteChildren,
+)
 
 interface LayoutRouteChildren {
-  LayoutIndexLazyRoute: typeof LayoutIndexLazyRoute;
-  LayoutStatsRoute: typeof LayoutStatsRouteWithChildren;
+  LayoutIndexLazyRoute: typeof LayoutIndexLazyRoute
+  LayoutarenaRoute: typeof LayoutarenaRouteWithChildren
+  LayoutStatsRoute: typeof LayoutStatsRouteWithChildren
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutIndexLazyRoute: LayoutIndexLazyRoute,
-  LayoutStatsRoute: LayoutStatsRouteWithChildren
-};
+  LayoutarenaRoute: LayoutarenaRouteWithChildren,
+  LayoutStatsRoute: LayoutStatsRouteWithChildren,
+}
 
-const LayoutRouteWithChildren = LayoutRoute._addFileChildren(LayoutRouteChildren);
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '': typeof LayoutRouteWithChildren;
-  '/': typeof LayoutIndexLazyRoute;
-  '/stats': typeof LayoutStatsLayoutRouteWithChildren;
-  '/stats/list': typeof LayoutStatsLayoutListIndexRoute;
-  '/stats/top': typeof LayoutStatsLayoutTopIndexRoute;
+  '': typeof LayoutRouteWithChildren
+  '/': typeof LayoutarenaLayoutRouteWithChildren
+  '/stats': typeof LayoutStatsLayoutRouteWithChildren
+  '/battles/index2': typeof LayoutarenaLayoutBattlesIndex2Route
+  '/stats/list': typeof LayoutStatsLayoutListIndexRoute
+  '/stats/top': typeof LayoutStatsLayoutTopIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof LayoutIndexLazyRoute;
-  '/stats': typeof LayoutStatsLayoutRouteWithChildren;
-  '/stats/list': typeof LayoutStatsLayoutListIndexRoute;
-  '/stats/top': typeof LayoutStatsLayoutTopIndexRoute;
+  '/': typeof LayoutarenaLayoutRouteWithChildren
+  '/stats': typeof LayoutStatsLayoutRouteWithChildren
+  '/battles/index2': typeof LayoutarenaLayoutBattlesIndex2Route
+  '/stats/list': typeof LayoutStatsLayoutListIndexRoute
+  '/stats/top': typeof LayoutStatsLayoutTopIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/_layout': typeof LayoutRouteWithChildren;
-  '/_layout/': typeof LayoutIndexLazyRoute;
-  '/_layout/stats': typeof LayoutStatsRouteWithChildren;
-  '/_layout/stats/_layout': typeof LayoutStatsLayoutRouteWithChildren;
-  '/_layout/stats/_layout/list/': typeof LayoutStatsLayoutListIndexRoute;
-  '/_layout/stats/_layout/top/': typeof LayoutStatsLayoutTopIndexRoute;
+  __root__: typeof rootRoute
+  '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/': typeof LayoutIndexLazyRoute
+  '/_layout/(arena)': typeof LayoutarenaRouteWithChildren
+  '/_layout/(arena)/_layout': typeof LayoutarenaLayoutRouteWithChildren
+  '/_layout/stats': typeof LayoutStatsRouteWithChildren
+  '/_layout/stats/_layout': typeof LayoutStatsLayoutRouteWithChildren
+  '/_layout/(arena)/_layout/battles/index2': typeof LayoutarenaLayoutBattlesIndex2Route
+  '/_layout/stats/_layout/list/': typeof LayoutStatsLayoutListIndexRoute
+  '/_layout/stats/_layout/top/': typeof LayoutStatsLayoutTopIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '' | '/' | '/stats' | '/stats/list' | '/stats/top';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/stats' | '/stats/list' | '/stats/top';
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+  | ''
+  | '/'
+  | '/stats'
+  | '/battles/index2'
+  | '/stats/list'
+  | '/stats/top'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/stats' | '/battles/index2' | '/stats/list' | '/stats/top'
   id:
-    | '__root__'
-    | '/_layout'
-    | '/_layout/'
-    | '/_layout/stats'
-    | '/_layout/stats/_layout'
-    | '/_layout/stats/_layout/list/'
-    | '/_layout/stats/_layout/top/';
-  fileRoutesById: FileRoutesById;
+  | '__root__'
+  | '/_layout'
+  | '/_layout/'
+  | '/_layout/(arena)'
+  | '/_layout/(arena)/_layout'
+  | '/_layout/stats'
+  | '/_layout/stats/_layout'
+  | '/_layout/(arena)/_layout/battles/index2'
+  | '/_layout/stats/_layout/list/'
+  | '/_layout/stats/_layout/top/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  LayoutRoute: typeof LayoutRouteWithChildren;
+  LayoutRoute: typeof LayoutRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  LayoutRoute: LayoutRouteWithChildren
-};
+  LayoutRoute: LayoutRouteWithChildren,
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -216,12 +310,27 @@ export const routeTree = rootRoute
       "filePath": "_layout.tsx",
       "children": [
         "/_layout/",
+        "/_layout/(arena)",
         "/_layout/stats"
       ]
     },
     "/_layout/": {
       "filePath": "_layout/index.lazy.tsx",
       "parent": "/_layout"
+    },
+    "/_layout/(arena)": {
+      "filePath": "_layout/(arena)",
+      "parent": "/_layout",
+      "children": [
+        "/_layout/(arena)/_layout"
+      ]
+    },
+    "/_layout/(arena)/_layout": {
+      "filePath": "_layout/(arena)/_layout.tsx",
+      "parent": "/_layout/(arena)",
+      "children": [
+        "/_layout/(arena)/_layout/battles/index2"
+      ]
     },
     "/_layout/stats": {
       "filePath": "_layout/stats",
@@ -237,6 +346,10 @@ export const routeTree = rootRoute
         "/_layout/stats/_layout/list/",
         "/_layout/stats/_layout/top/"
       ]
+    },
+    "/_layout/(arena)/_layout/battles/index2": {
+      "filePath": "_layout/(arena)/_layout/battles/index2.tsx",
+      "parent": "/_layout/(arena)/_layout"
     },
     "/_layout/stats/_layout/list/": {
       "filePath": "_layout/stats/_layout/list/index.tsx",

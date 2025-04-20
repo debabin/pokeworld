@@ -3,7 +3,7 @@ import type { FetchesRequestConfig } from '@siberiacancode/fetches';
 import type {
   StatisticControllerGetPokemonsParams,
   StatisticPokemonsResponse
-} from '@/generated/api';
+} from '@/generated/api/indexю';
 
 import { api } from '@/utils/api/instance';
 

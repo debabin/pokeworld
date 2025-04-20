@@ -1,12 +1,39 @@
 import 'reflect-metadata';
+import 'dotenv/config'
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+// import { RedisStore } from 'connect-redis';
+// import { createClient } from 'redis';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import passport from 'passport';
 
 import { AppModule } from './app.module.js';
-import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // const redisClient = createClient({ url: 'redis://localhost:6379' });
+  // await redisClient.connect();
+
+  // const redisStore = new RedisStore({
+  //   client: redisClient,
+  //   prefix: "poketinder:",
+  // })
+  app.use(cookieParser());
+  app.use(
+    session({
+      // store: redisStore,
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: false,
+      cookie: { secure: false, httpOnly: true, maxAge: 5000 }
+    }),
+  );
+
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   app.useGlobalPipes(
     new ValidationPipe({

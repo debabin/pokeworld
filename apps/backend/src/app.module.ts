@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as path from 'node:path';
 
 // import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StatisticModule } from './modules';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './modules/auth';
+import { BattleModule } from './modules/battle';
 import { PokemonModule, PokemonService } from './modules/pokemon';
+import { UserModule } from './modules/user';
 
 @Module({
   imports: [
@@ -15,13 +19,16 @@ import { PokemonModule, PokemonService } from './modules/pokemon';
       username: 'admin',
       password: '1234',
       database: 'pokemon',
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      entities: [path.join(__dirname, '/../**/*.entity{.ts,.js}')],
       synchronize: true
     }),
+    AuthModule,
     StatisticModule,
-    PokemonModule
+    PokemonModule,
+    BattleModule,
+    UserModule
   ],
   controllers: [],
   providers: [AppService, PokemonService]
 })
-export class AppModule {}
+export class AppModule { }

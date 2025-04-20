@@ -7,7 +7,6 @@
 
 export * from './actionPokemonDto';
 export * from './baseResponse';
-export * from './function';
 export * from './paginationPokemonsResponse';
 export * from './paginationStatisticPokemonsResponse';
 export * from './pokemon';

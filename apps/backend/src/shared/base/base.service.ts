@@ -1,37 +1,41 @@
 import type { Repository } from 'typeorm';
 
 export class BaseService<T> {
-  constructor(private repository: Repository<T>) {}
+  constructor(private repository: Repository<T>) { }
 
-  async findAll(): Promise<T[]> {
-    return await this.repository.find();
+  find(...params: Parameters<typeof this.repository.find>) {
+    return this.repository.find(...params);
   }
 
-  async findOne(...params: Parameters<typeof this.repository.findOne>) {
-    return await this.repository.findOne(...params);
+  findAll() {
+    return this.repository.find();
   }
 
-  async save(...params: Parameters<typeof this.repository.save>) {
-    return await this.repository.save(...params);
+  findOne(...params: Parameters<typeof this.repository.findOne>) {
+    return this.repository.findOne(...params);
   }
 
-  async insert(...params: Parameters<typeof this.repository.insert>) {
-    return await this.repository.insert(...params);
+  save(...params: Parameters<typeof this.repository.save>) {
+    return this.repository.save(...params);
   }
 
-  async update(...params: Parameters<typeof this.repository.update>) {
-    return await this.repository.update(...params);
+  insert(...params: Parameters<typeof this.repository.insert>) {
+    return this.repository.insert(...params);
   }
 
-  async delete(...params: Parameters<typeof this.repository.delete>) {
-    return await this.repository.delete(...params);
+  update(...params: Parameters<typeof this.repository.update>) {
+    return this.repository.update(...params);
   }
 
-  async clear(...params: Parameters<typeof this.repository.clear>) {
-    return await this.repository.clear(...params);
+  delete(...params: Parameters<typeof this.repository.delete>) {
+    return this.repository.delete(...params);
   }
 
-  async createQueryBuilder(...params: Parameters<typeof this.repository.createQueryBuilder>) {
-    return await this.repository.createQueryBuilder(...params);
+  clear(...params: Parameters<typeof this.repository.clear>) {
+    return this.repository.clear(...params);
+  }
+
+  createQueryBuilder(...params: Parameters<typeof this.repository.createQueryBuilder>) {
+    return this.repository.createQueryBuilder(...params);
   }
 }

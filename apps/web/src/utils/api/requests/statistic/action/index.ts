@@ -1,6 +1,6 @@
 import type { FetchesRequestConfig } from '@siberiacancode/fetches';
 
-import type { ActionPokemonDto, BaseResponse } from '@/generated/api';
+import type { ActionPokemonDto, BaseResponse } from '@/generated/api/indexю';
 
 import { api } from '@/utils/api/instance';
 

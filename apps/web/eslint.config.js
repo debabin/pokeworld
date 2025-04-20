@@ -9,7 +9,13 @@ export default eslint(
     jsx: true
   },
   {
-    name: 'poketinder/tanstack-query',
+    name: 'pokeworld/web/rewrite',
+    rules: {
+      'ts/ban-ts-comment': 'warn'
+    }
+  },
+  {
+    name: 'pokeworld/web/tanstack-query',
     plugins: {
       '@tanstack/query': pluginTanstackQuery
     },
@@ -19,7 +25,7 @@ export default eslint(
     }
   },
   {
-    name: 'poketinder/tanstack-router',
+    name: 'pokeworld/web/tanstack-router',
     plugins: {
       '@tanstack/router': pluginTanstackRouter
     },
@@ -28,7 +34,7 @@ export default eslint(
     }
   },
   {
-    name: 'poketinder/generated',
+    name: 'pokeworld/web/generated',
     ignores: ['generated']
   }
 );

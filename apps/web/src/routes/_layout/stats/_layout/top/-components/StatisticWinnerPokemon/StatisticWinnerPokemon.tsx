@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import type { PokemonStatistic } from '@/generated/api';
+import type { PokemonStatistic } from '@/generated/api/indexю';
 
 import {
   Card,
@@ -48,7 +48,7 @@ export const StatisticWinnerPokemon = ({
             {pokemon.name}
           </PokemonCardTitle>
         </div>
-        <StatisticLine statistic={pokemon.statistic} />
+        {pokemon.statistic && <StatisticLine statistic={pokemon.statistic} />}
       </Card>
     </div>
   );

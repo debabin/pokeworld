@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import type { Pokemon, Statistic } from '@/generated/api';
+import type { Pokemon, Statistic } from '@/generated/api/indexю';
 
 import {
   PokemonCard,

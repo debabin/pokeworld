@@ -3,22 +3,21 @@ import type { SelectQueryBuilder } from 'typeorm';
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { PokemonService } from '@/modules/pokemon';
+import type { PokemonService } from '@/modules/pokemon';
 
 import { BaseResolver, BaseResponse } from '@/shared';
 
-import {
+import type {
+  ActionPokemonDto,
   GetPokemonStatisticDto,
-  GetStatisticPokemonsDto,
+  GetStatisticPokemonsDto
+,
   GetTopPokemonsDto
 } from './dto';
 import type { PokemonStatistic } from './entities';
 import type { PaginationStatisticPokemonsResponse } from './statistic.model';
-import { StatisticService } from './statistic.service';
+import type { StatisticService } from './statistic.service';
 
-import {
-  ActionPokemonDto
-} from './dto';
 import { RATING_QUERY } from './query';
 import {
   PokemonStatisticResponse,
@@ -81,6 +80,9 @@ export class StatisticController extends BaseResolver {
       'statistic.pokemonId = pokemon.pokemonId'
     ) as SelectQueryBuilder<PokemonStatistic>;
 
+    const offset = getStatisticPokemonsDto.offset ?? 0;
+    const limit = getStatisticPokemonsDto.limit ?? 10;
+
     const rating = getStatisticPokemonsDto.rating ?? 'desc';
 
     pokemonQuery.addSelect(RATING_QUERY, 'rating');
@@ -102,18 +104,18 @@ export class StatisticController extends BaseResolver {
       });
     }
 
-    pokemonQuery.skip(getStatisticPokemonsDto.offset).take(getStatisticPokemonsDto.limit);
+    pokemonQuery.skip(offset).take(limit);
 
     const [pokemons, itemCount] = await pokemonQuery.getManyAndCount();
-    const pageCount = Math.ceil(itemCount / getStatisticPokemonsDto.limit);
-    const page = Math.floor(getStatisticPokemonsDto.offset / getStatisticPokemonsDto.limit) + 1;
+    const pageCount = Math.ceil(itemCount / limit);
+    const page = Math.floor(offset / limit) + 1;
     const prev = page > 1;
     const next = page < pageCount;
 
     const response = {
       pokemons,
-      offset: getStatisticPokemonsDto.offset,
-      limit: getStatisticPokemonsDto.limit,
+      offset,
+      limit,
       itemCount,
       page,
       pageCount,
